@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: Blocked Traffic Aggregation
+  description: >-
+    This is an API for accessing the origins of failed attempts to get past the
+    Moravian College firewall.  This is for a final project for CSCI 298 during
+    the Fall 2017 semester.  It allows users to query the server at CIT which is
+    tracking all of the failed attempts for a list of IP addresses that have
+    attacked the firewall the most.
+  version: 0.1.0
+paths:
+  /aggregate:
+    get:
+      summary: Get a list of top IPs attempting to breach the firewall.
+      parameters:
+        - in: path
+          name: num_ips
+          schema:
+            type: integer
+          required: true
+          description: Number of desired top failed attempt IPs.
+      description: >-
+        Allows the user to query the server for the top number of IPs that have
+        attacked the firewall. The user provides a number in the path and
+        receives that number of IP addresses from the server.
+
+        The return type is a string representation of a list of IPs represented
+        as strings.
+      responses:
+        '200':
+          description: A string representation of a list of IPs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  list_of_ips:
+                    type: string
+                    description: String representation of a list of IP addresses.
+        '500':
+          description: >-
+            Used if the query parameter is missing or extra parameters are
+            given.
