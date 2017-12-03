@@ -1,4 +1,3 @@
-import socket
 from flask import Flask, request
 from threading import Thread
 
